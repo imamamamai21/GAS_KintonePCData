@@ -32,3 +32,15 @@ function updateData() {
   var timeStamp = Utilities.formatDate(new Date(), 'JST', 'yyyy年 MM/dd(E) HH:mm');
   SpreadsheetApp.openById(MY_SHEET_ID).getSheetByName('はじめに').getRange('B2').setValue(timeStamp);
 }
+
+
+/**
+ * ピボットから開いた詳細シートを自動的に閉じる
+ * トリガー登録(池田)毎日3時
+ */
+function closeInfoSheet() {
+  var myFile = SpreadsheetApp.getActiveSpreadsheet();
+  myFile.getSheets().forEach(function(sheet) {
+    if (sheet.getName().indexOf('詳細') != -1) myFile.deleteSheet(sheet);
+  }); 
+}
